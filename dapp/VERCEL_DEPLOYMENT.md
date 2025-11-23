@@ -6,12 +6,16 @@
 
 1. **Go to Vercel Dashboard**: https://vercel.com/new
 2. **Import your GitHub repository**
-3. **Configure Project Settings**:
+3. **Configure Project Settings** (CRITICAL):
+   - Go to **Settings** → **General**
+   - Find **Root Directory** section
+   - Click **Edit** and set to: `dapp` ⚠️ **MUST SET THIS**
+   - Click **Save**
+4. **Build Settings** (should auto-detect, but verify):
    - **Framework Preset**: Next.js
-   - **Root Directory**: `dapp` ⚠️ **IMPORTANT**
-   - **Build Command**: `npm run build` (or leave default)
-   - **Output Directory**: `.next` (or leave default)
-   - **Install Command**: `npm install` (or leave default)
+   - **Build Command**: `npm run build` (runs in dapp directory)
+   - **Output Directory**: `.next` (relative to dapp)
+   - **Install Command**: `npm install` (runs in dapp directory)
 
 4. **Add Environment Variables**:
    ```
@@ -42,12 +46,14 @@ vercel
 
 ### Option 3: Using vercel.json (Already Configured)
 
-The `vercel.json` file in the root is already configured. Just:
+The `vercel.json` file in the root is configured with build commands. However, you **MUST** still set the Root Directory in Vercel project settings:
 
 1. **Import project in Vercel**
-2. **Vercel will auto-detect the configuration**
+2. **Set Root Directory to `dapp`** in Project Settings → General
 3. **Add environment variables**
 4. **Deploy**
+
+**Note**: `rootDirectory` cannot be in `vercel.json` - it must be set in Vercel Dashboard.
 
 ## ⚙️ Vercel Project Settings
 
