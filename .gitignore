@@ -13,4 +13,8 @@ frontend/.next/
 frontend/node_modules/
 frontend/.env.local
 frontend/.env
+dapp/.next/
+dapp/node_modules/
+dapp/.env.local
+dapp/.env
 
