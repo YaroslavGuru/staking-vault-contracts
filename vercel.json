@@ -2,8 +2,6 @@
   "buildCommand": "cd dapp && npm install && npm run build",
   "outputDirectory": "dapp/.next",
   "installCommand": "cd dapp && npm install",
-  "framework": "nextjs",
-  "rootDirectory": "dapp",
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./dapp"
+  "framework": "nextjs"
 }
 
