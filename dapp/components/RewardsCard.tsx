@@ -3,7 +3,7 @@
 import { useAccount } from "wagmi";
 import { formatTokenAmount, truncateDecimals } from "@/lib/utils";
 import { usePendingRewards, useTotalStaked, useRewardRate, useClaimRewards } from "@/lib/staking";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 export default function RewardsCard() {
   const { address, isConnected } = useAccount();
@@ -28,12 +28,13 @@ export default function RewardsCard() {
     );
   }
 
-  const pendingRewardsFormatted = formatTokenAmount(pendingRewards);
-  const totalStakedFormatted = formatTokenAmount(totalStaked);
-  const rewardRateFormatted = formatTokenAmount(rewardRate);
+  const pendingRewardsFormatted = formatTokenAmount(pendingRewards as bigint | undefined);
+  const totalStakedFormatted = formatTokenAmount(totalStaked as bigint | undefined);
+  const rewardRateFormatted = formatTokenAmount(rewardRate as bigint | undefined);
 
   const handleClaim = async () => {
-    if (pendingRewards && pendingRewards > 0n) {
+    const rewards = pendingRewards as bigint | undefined;
+    if (rewards && rewards > 0n) {
       await claimRewards();
     }
   };
@@ -50,7 +51,7 @@ export default function RewardsCard() {
         </p>
         <button
           onClick={handleClaim}
-          disabled={!pendingRewards || pendingRewards === 0n || isClaiming}
+          disabled={!pendingRewards || (pendingRewards as bigint) === 0n || isClaiming}
           className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold rounded-lg shadow-lg transition-colors duration-200"
         >
           {isClaiming ? (

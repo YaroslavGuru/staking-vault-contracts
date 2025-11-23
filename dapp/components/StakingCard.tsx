@@ -47,11 +47,11 @@ export default function StakingCard() {
     );
   }
 
-  const stakedAmount = userInfo ? formatTokenAmount(userInfo[0]) : "0";
+  const stakedAmount = userInfo ? formatTokenAmount((userInfo as [bigint, bigint])[0]) : "0";
   const needsApproval =
     depositAmount &&
     allowance !== undefined &&
-    parseTokenAmount(depositAmount) > allowance;
+    parseTokenAmount(depositAmount) > (allowance as bigint);
 
   const handleDeposit = async () => {
     if (!depositAmount) return;
@@ -71,13 +71,13 @@ export default function StakingCard() {
 
   const handleMaxDeposit = () => {
     if (yaroBalance) {
-      setDepositAmount(formatTokenAmount(yaroBalance));
+      setDepositAmount(formatTokenAmount(yaroBalance as bigint));
     }
   };
 
   const handleMaxWithdraw = () => {
     if (userInfo) {
-      setWithdrawAmount(formatTokenAmount(userInfo[0]));
+      setWithdrawAmount(formatTokenAmount((userInfo as [bigint, bigint])[0]));
     }
   };
 
@@ -110,7 +110,7 @@ export default function StakingCard() {
           onChange={setDepositAmount}
           onAction={handleDeposit}
           actionLabel={needsApproval ? "Approve" : "Deposit"}
-          disabled={!yaroBalance || yaroBalance === 0n}
+          disabled={!yaroBalance || (yaroBalance as bigint) === 0n}
           isLoading={isApproving || isDepositing}
           maxValue={yaroBalance ? formatTokenAmount(yaroBalance) : undefined}
           onMaxClick={handleMaxDeposit}
@@ -130,7 +130,7 @@ export default function StakingCard() {
         onChange={setWithdrawAmount}
         onAction={handleWithdraw}
         actionLabel="Withdraw"
-        disabled={!userInfo || userInfo[0] === 0n}
+        disabled={!userInfo || (userInfo as [bigint, bigint])[0] === 0n}
         isLoading={isWithdrawing}
         maxValue={stakedAmount}
         onMaxClick={handleMaxWithdraw}

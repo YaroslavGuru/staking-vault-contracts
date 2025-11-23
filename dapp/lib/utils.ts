@@ -3,10 +3,11 @@ import { formatEther, parseEther } from "viem";
 /**
  * Format a bigint value to a human-readable string with decimals
  */
-export function formatTokenAmount(amount: bigint | undefined, decimals: number = 18): string {
+export function formatTokenAmount(amount: bigint | undefined | unknown): string {
   if (!amount) return "0";
   try {
-    return formatEther(amount);
+    const bigintAmount = typeof amount === "bigint" ? amount : BigInt(String(amount));
+    return formatEther(bigintAmount);
   } catch {
     return "0";
   }

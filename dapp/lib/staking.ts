@@ -1,6 +1,6 @@
 "use client";
 
-import { Address, encodeFunctionData } from "viem";
+import { Address } from "viem";
 import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import stakingVaultABI from "@/contracts/stakingVaultABI.json";
 
